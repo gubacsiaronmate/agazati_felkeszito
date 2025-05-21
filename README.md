@@ -1,1 +1,3 @@
-# agazati_felkeszito
+# Agazati felkeszito
+
+itt talalhato az osszes anyag agazati felkeszulesre
