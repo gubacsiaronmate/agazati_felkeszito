@@ -50,3 +50,105 @@ print("Páros hét csapadékai:", end=" ") # kiiratod a kezdo szoveget
 for szam in paratlan_hetek: # minden szamon vegig lepegetsz
     print(szam, end=" ") # kiiratod a szamokat egyesevel
 print(f"összesen: {sum(paros_hetek)}") # osszesen ennyi volt a heten
+
+
+# helsinki.py
+
+sportolok = []
+with open("helsinki.txt", "r", encoding="utf-8") as f: # megnyitod a fajlt
+    for line in f: # minden soron vegig lepegetsz
+        line = line.strip().split(" ") # levagod a folosleges szokozoket "sor vege" karaktereket es szokozonkent felbontod
+        sportolok.append( # hozzaadod az adatokat a listahoz
+            { # dictionary-t hozol letre hozza
+                "helyezes": int(line[0]),
+                "szam": int(line[1]),
+                "sportag": line[2],
+                "versenyszam": line[3],
+            }
+        )
+
+print(f"Helsinki sportolok: {len(sportolok)}") # kiiratod a sportolok szamat
+
+
+arany = 0 # aranyak szama
+ezust = 0 # ezustok szama
+bronz = 0 # bronzok szama
+for sportolo in sportolok: # minden sportolon vegig lepegetsz
+    if sportolo["helyezes"] == 1: # ha arany van
+        arany += 1
+    elif sportolo["helyezes"] == 2: # ha ezust van
+        ezust += 1
+    elif sportolo["helyezes"] == 3: # ha bronz van
+        bronz += 1
+
+print(f"Arany: {arany}") # kiiratod az aranyat
+print(f"Ezust: {ezust}") # kiiratod az ezustot
+print(f"Bronz: {bronz}") # kiiratod a bronzt
+
+
+pontszam = 0 # pontok szama
+for sportolo in sportolok: # minden sportolon vegig lepegetsz
+    if sportolo["helyezes"] == 1: # ha elso helyezett +7 pont
+        pontszam += 7
+    elif sportolo["helyezes"] == 2: # ha masodik helyezett +5 pont
+        pontszam += 5
+    elif sportolo["helyezes"] == 3: # ha harmadik helyezett +4 pont
+        pontszam += 4
+    elif sportolo["helyezes"] == 4: # ha negyedik helyezett +3 pont
+        pontszam += 3
+    elif sportolo["helyezes"] == 5: # ha otodik helyezett +2 pont
+        pontszam += 2
+    elif sportolo["helyezes"] == 6: # ha hatodik helyezett +1 pont
+        pontszam += 1
+
+print(f"Pontszam: {pontszam}") # kiiratod a pontszamot
+
+
+uszas = 0 # uszo ermek szama
+torna = 0 # torna ermek szama
+for sportolo in sportolok: # minden sportolon vegig lepegetsz
+    if sportolo["sportag"] == "uszas": # ha uszas
+        uszas += 1
+    elif sportolo["sportag"] == "torn": # ha torna
+        torna += 1
+
+if uszas > torna: # ha a uszas nagyobb
+    print("Uszas tobb")
+elif torna > uszas: # ha a torna nagyobb
+    print("Torna tobb")
+else: # ha egyenloek
+    print("Egyenloek")
+
+
+with open("helsinki2.txt", "w", encoding="utf-8") as f: # megnyitod a fajlt
+    for sportolo in sportolok: # minden sportolon vegig lepegetsz
+        if sportolo["sportag"] != "kajakkenu": # ha nem kajakkenu azaz helyesen van irva
+            # minden helyezeshez igazodva beirod a pontszamot is
+            if sportolo["helyezes"] == 1:
+                f.write(f"{sportolo['helyezes']} {sportolo['szam']} {7} {sportolo['sportag']} {sportolo['versenyszam']}\n")
+            elif sportolo["helyezes"] == 2:
+                f.write(f"{sportolo['helyezes']} {sportolo['szam']} {5} {sportolo['sportag']} {sportolo['versenyszam']}\n")
+            elif sportolo["helyezes"] == 3:
+                f.write(f"{sportolo['helyezes']} {sportolo['szam']} {4} {sportolo['sportag']} {sportolo['versenyszam']}\n")
+            elif sportolo["helyezes"] == 4:
+                f.write(f"{sportolo['helyezes']} {sportolo['szam']} {3} {sportolo['sportag']} {sportolo['versenyszam']}\n")
+            elif sportolo["helyezes"] == 5:
+                f.write(f"{sportolo['helyezes']} {sportolo['szam']} {2} {sportolo['sportag']} {sportolo['versenyszam']}\n")
+            elif sportolo["helyezes"] == 6:
+                f.write(f"{sportolo['helyezes']} {sportolo['szam']} {1} {sportolo['sportag']} {sportolo['versenyszam']}\n")
+        else:
+            # ha kajakkenu van beirva kijavitod es megint pontszam
+            if sportolo["helyezes"] == 1:
+                f.write(f"{sportolo['helyezes']} {sportolo['szam']} {7} kajak-kenu {sportolo['versenyszam']}\n")
+            elif sportolo["helyezes"] == 2:
+                f.write(f"{sportolo['helyezes']} {sportolo['szam']} {5} kajak-kenu {sportolo['versenyszam']}\n")
+            elif sportolo["helyezes"] == 3:
+                f.write(f"{sportolo['helyezes']} {sportolo['szam']} {4} kajak-kenu {sportolo['versenyszam']}\n")
+            elif sportolo["helyezes"] == 4:
+                f.write(f"{sportolo['helyezes']} {sportolo['szam']} {3} kajak-kenu {sportolo['versenyszam']}\n")
+            elif sportolo["helyezes"] == 5:
+                f.write(f"{sportolo['helyezes']} {sportolo['szam']} {2} kajak-kenu {sportolo['versenyszam']}\n")
+            elif sportolo["helyezes"] == 6:
+                f.write(f"{sportolo['helyezes']} {sportolo['szam']} {1} kajak-kenu {sportolo['versenyszam']}\n")
+
+# 8as az buzis en nem ertem
